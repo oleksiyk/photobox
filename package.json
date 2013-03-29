@@ -1,0 +1,22 @@
+{
+    "author":"Oleksiy Krivoshey <oleksiyk@gmail.com>",
+    "name":"Photo.js",
+    "description":"Browse and view your Dropbox photos",
+    "version":"0.0.1",
+    "main":"./express/app.js",
+
+    "engines":{
+        "node":">=0.10.0"
+    },
+
+    "dependencies":{
+        "express":"3.x",
+        "jade": ">= 0.0.1",
+        "underscore": ">=1.4.4",
+        "async": ">=0.2.5",
+        "dbox": ">=0.6.2",
+        "optimist": ">=0.3.5",
+        "prompt": "0.1.12"
+    }
+
+}

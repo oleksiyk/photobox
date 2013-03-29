@@ -1,0 +1,15 @@
+div(ng-controller="IndexCtrl").span12
+    .row-fluid
+        ul#folders-list.span12
+            li(ng-repeat='folder in folders')
+                a(ng-href='#?_p={{folder.path}}') {{folder.path}}
+
+    .row-fluid
+        ul#photos-list.span12
+            li(ng-repeat='file in files')
+                | {{file.path}}
+
+script
+    $(document).ready(function(){
+
+    });
