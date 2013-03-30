@@ -1,0 +1,17 @@
+div(ng-controller="LoginCtrl").span12
+    .row-fluid
+        .span5.well
+            form(ng-submit="login()", name="loginForm").form-horizontal
+                div(ng-class='{ error: error }').control-group
+                    label.control-label Login
+                    .controls
+                        input(type="text", name="login", ng-model='form.login', placeholder="Login", required)
+                div(ng-class='{ error: error }').control-group
+                    label.control-label Password
+                    .controls
+                        input(type="text", type="password", name="password", ng-model='form.password', placeholder="Password", required)
+                .control-group
+                    .controls
+                        button(type="submit").btn Sign in
+
+

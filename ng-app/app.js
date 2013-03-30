@@ -1,9 +1,12 @@
 // Declare app level module which depends on filters, and services
-var app = angular.module('Photobox.js', ['Photobox.js.filters', 'Photobox.js.services', 'Photobox.js.directives', 'ui.bootstrap', 'ui']).
+var app = angular.module('Photobox.js', ['Photobox.js.filters', 'Photobox.js.services', 'Photobox.js.directives']).
     config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
         $routeProvider.
             when('/', {
                 templateUrl: 'partials/index'
+            }).
+            when('/login', {
+                templateUrl: 'partials/login'
             })./*
             when('/message/:index/:id', {
                 templateUrl: 'partials/messageView'
