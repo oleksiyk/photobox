@@ -2,12 +2,13 @@ div(ng-controller="IndexCtrl").span12
     .row-fluid
         ul#folders-list.thumbnails.span12
             li(ng-repeat='folder in folders')
-                a(ng-href='#?_p={{folder.path}}', ng-style="folder.thumbnailStyle").thumbnail.thumbnail_cropped.folder
-                    div
-                        p {{folder.name}}
+                a(ng-href='#?_p={{folder.path}}', ng-style="folder.thumbnailStyle").thumbnail.pb_cropped.pb_folder
+                    .pb_table
+                        .pb_cell
+                            .pb_centered_text {{folder.name}}
 
     .row-fluid
         ul#photos-list.thumbnails.span12
             li(ng-repeat='file in files')
-                a(ng-href='image/xl?_p={{file.path}}', ng-style="file.thumbnailStyle", rel='prettyPhoto[gallery]').thumbnail.thumbnail_cropped
+                a(ng-href='image/xl?_p={{file.path}}', ng-style="file.thumbnailStyle", rel='prettyPhoto[gallery]').thumbnail.pb_cropped
 

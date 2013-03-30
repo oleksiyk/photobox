@@ -18,23 +18,25 @@ td.nowrap {
     white-space:nowrap;
 }
 
-.thumbnail_cropped {
+.thumbnail.pb_cropped {
     width:256px; height:256px;
     background-position: center center;
     background-size: cover;
 }
 
-.thumbnail_cropped.folder {
+.thumbnail.pb_cropped.pb_folder {
     width: 128px; height: 128px;
-    display: table;
 }
 
-.folder div {
-    display: table-cell;
-    vertical-align: middle;
+.thumbnail .pb_table {
+    display: table; width: 100%; height: 100%;
 }
 
-.folder p {
+.thumbnail .pb_cell {
+    display: table-cell; vertical-align: middle;
+}
+
+.thumbnail .pb_centered_text {
     text-align: center;
     background-color: rgba(240, 240, 240, .9);
 }
