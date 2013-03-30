@@ -53,6 +53,7 @@ app.controller('IndexCtrl', function($scope, $location, Index, $timeout) {
 
         }.bind(this), function(err){
             if(err.status == 403){
+                $location.replace();
                 $location.path('/login');
             }
         })
@@ -85,6 +86,7 @@ app.controller('LoginCtrl', function($scope, $location, $http) {
             success(function(data, status){
                 //console.log(data, status);
                 $scope.error = false;
+                $location.replace();
                 $location.path('/');
             }).
             error(function(data, status){
