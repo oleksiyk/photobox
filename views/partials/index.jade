@@ -17,5 +17,5 @@ div(ng-controller="IndexCtrl").span12
     .row-fluid
         ul(ng-show='files.length')#photos-list.thumbnails.span12.pb_well
             li(ng-repeat='file in files')
-                a(ng-href='image/xl?_p={{file.path}}', ng-style="file.thumbnailStyle", rel='prettyPhoto[gallery]').thumbnail.pb_cropped
+                a(ng-href='image/xl?_p={{file.path}}', title='{{file.name}}', ng-style="file.thumbnailStyle", rel='prettyPhoto[gallery]').thumbnail.pb_cropped
 

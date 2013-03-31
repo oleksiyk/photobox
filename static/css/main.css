@@ -50,3 +50,8 @@ td.nowrap {
     border-radius: 4px;
 }
 
+/*  center title in PrettyPhoto */
+p.pp_description {
+    text-align: center;
+    margin-right: 110px !important; /* navigation buttons width */
+}

@@ -46,6 +46,7 @@ app.controller('IndexCtrl', function($scope, $location, Index, $timeout) {
                     }
                     $scope.folders.push(entry);
                 } else if(/\.(jpg|png)$/i.test(entry.path)){
+                    entry.name = entry.name.replace(/\.(jpg|png)$/i, '');
                     entry.thumbnailStyle = {
                         'background-image': "url('image/l?_p=" + entry.path + "')"
                     }
