@@ -38,21 +38,29 @@ angular.module('Photobox.js.directives', []).
 
                 attrs.$observe('fadebackground', function(href){
 
-                    var i = new Image;
-                    $(i).load(function(){
+                    var tmp = $('<div/>').css({
+                        'position': 'absolute',
+                        'top': '-10000px',
+                        'width': '1px',
+                        'height': '1px',
+                        'overflow': 'hidden'
+                    }).appendTo('body');
+
+                    $('<img/>').appendTo(tmp).load(function(){
+
+                        tmp.remove();
 
                         element.css({
-                            'background-image': "url('"+ i.src +"')",
+                            'background-image': "url('"+ this.src +"')",
                             'background-position': 'center center',
                             'background-size': 'cover'
                         })
 
                         $timeout(function(){
                             element.addClass('pb_fadein');
-                        }, 30)
+                        }, 300)
 
-                    })
-                    i.src = 'image/l?_p=' + attrs.fadebackground;
+                    }).attr('src', 'image/l?_p=' + attrs.fadebackground)
                 })
             }
         };
