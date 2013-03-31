@@ -61,13 +61,11 @@ td.nowrap {
     white-space:nowrap;
 }
 
-.thumbnail.pb_cropped {
+.thumbnail.pb_thumb_256 {
     width:256px; height:256px;
-    background-position: center center;
-    background-size: cover;
 }
 
-.thumbnail.pb_cropped.pb_folder {
+.thumbnail.pb_thumb_128 {
     width: 128px; height: 128px;
 }
 
@@ -99,7 +97,9 @@ td.nowrap {
     -moz-animation-duration:.5s;
     -o-animation-duration:.5s;
     animation-duration:.5s;
+}
 
+.pb_fadeinDelay02 {
     -webkit-animation-delay:.2s;
     -moz-animation-delay:.2s;
     -o-animation-delay:.2s;

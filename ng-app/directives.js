@@ -27,5 +27,34 @@ angular.module('Photobox.js.directives', []).
                 })
             }
         };
-    })
+    }).
+    directive('fadebackground', ['$timeout', function ($timeout) {
+        return {
+            restrict: 'AC',
+            link: function (scope, element, attrs) {
+                element.css({
+                    'opacity': 0
+                });
+
+                attrs.$observe('fadebackground', function(href){
+
+                    var i = new Image;
+                    $(i).load(function(){
+
+                        element.css({
+                            'background-image': "url('"+ i.src +"')",
+                            'background-position': 'center center',
+                            'background-size': 'cover'
+                        })
+
+                        $timeout(function(){
+                            element.addClass('pb_fadein');
+                        }, 30)
+
+                    })
+                    i.src = 'image/l?_p=' + attrs.fadebackground;
+                })
+            }
+        };
+    }])
 ;

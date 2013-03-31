@@ -9,8 +9,9 @@ div(ng-controller="IndexCtrl").span12
     .row-fluid.pb_fadein
         ul(ng-show='folders.length')#folders-list.thumbnails.span12.pb_well
             li(ng-repeat='folder in folders')
-                a(ng-href='#?_p={{folder.path}}', title='{{folder.dirTitle | uppercase}}', ng-style="folder.thumbnailStyle").thumbnail.pb_cropped.pb_folder
-                    .pb_table
+                a(ng-href='#?_p={{folder.path}}',
+                    title='{{folder.dirTitle | uppercase}}').thumbnail.pb_thumb_128
+                    div(fadebackground="{{folder.thumbnailPath}}").pb_table
                         .pb_cell
                             .pb_centered_text {{folder.name}}
 
@@ -20,6 +21,6 @@ div(ng-controller="IndexCtrl").span12
                 a(ng-href='image/xl?_p={{file.path}}',
                     title='{{file.name | uppercase }}',
                     data-pp-title='<a href="image/o?_p={{file.path}}">{{file.name | uppercase}}</a>',
-                    ng-style="file.thumbnailStyle",
-                    rel='prettyPhoto[gallery]').thumbnail.pb_cropped
+                    rel='prettyPhoto[gallery]').thumbnail.pb_thumb_256
+                    div(fadebackground="{{file.path}}").pb_table
 
