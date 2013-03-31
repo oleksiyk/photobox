@@ -17,44 +17,26 @@ html(ng-app="Photobox.js")
         script(src='js/prettyPhoto-3.1.5/js/jquery.prettyPhoto.modified.js')
 
     body
-//-        div(ng-controller='MenuCtrl').navbar.navbar-fixed-top
-            div.navbar-inner
-                div.container
-                    a(data-toggle='collapse',data-target='.nav-collapse').btn.btn-navbar
-                        span.icon-bar
-                        span.icon-bar
-                        span.icon-bar
-                        a(href='#').brand #{title}
-                        div.nav-collapse
-                            ul.nav
-                                li.dropdown
-                                    a.dropdown-toggle
-                                        | Searches
-                                        b.caret
-                                    ul.dropdown-menu
-                                        li
-                                            a(href='#') Default
-                                        li.divider
-                                        li(ng-repeat='(index, search) in searches')
-                                            a(ng-click='searchLink(index)') {{search.name}}
-
-        div.container-fluid
-            block content
-            hr
-            footer
+        #wrap
+            .container-fluid
+                block content
+                #push
+        footer#footer
+            .container-fluid
+                hr
                 | &copy; Oleksiy Krivoshey. CSS by
                 a(target="_blank", href="http://twitter.github.com/bootstrap")
                     |  Twitter Bootstrap
 
-                script(src='bootstrap/js/bootstrap.min.js')
-                // angular
-                script(src='js/angular-1.0.4/angular.min.js')
-                script(src='js/angular-1.0.4/angular-resource.js')
-                //script(src='js/angular-ui-bootstrap/ui-bootstrap-tpls-0.2.0.min.js')
-                //script(src='js/angular-ui-0.4.0/build/angular-ui.min.js')
-                // application code
-                script(src='app.js')
-                script(src='controllers.js')
-                script(src='filters.js')
-                script(src='services.js')
-                script(src='directives.js')
+        script(src='bootstrap/js/bootstrap.min.js')
+        // angular
+        script(src='js/angular-1.0.4/angular.min.js')
+        script(src='js/angular-1.0.4/angular-resource.js')
+        //script(src='js/angular-ui-bootstrap/ui-bootstrap-tpls-0.2.0.min.js')
+        //script(src='js/angular-ui-0.4.0/build/angular-ui.min.js')
+        // application code
+        script(src='app.js')
+        script(src='controllers.js')
+        script(src='filters.js')
+        script(src='services.js')
+        script(src='directives.js')

@@ -6,7 +6,7 @@ div(ng-controller="IndexCtrl").span12
             li(ng-repeat='br in breadcrumb')
                 span.divider /
                 a(ng-href='#?_p={{br.path}}') {{br.name}}
-    .row-fluid
+    .row-fluid.pb_fadein
         ul(ng-show='folders.length')#folders-list.thumbnails.span12.pb_well
             li(ng-repeat='folder in folders')
                 a(ng-href='#?_p={{folder.path}}', title='{{folder.dirTitle | uppercase}}', ng-style="folder.thumbnailStyle").thumbnail.pb_cropped.pb_folder
@@ -14,7 +14,7 @@ div(ng-controller="IndexCtrl").span12
                         .pb_cell
                             .pb_centered_text {{folder.name}}
 
-    .row-fluid
+    .row-fluid.pb_fadein
         ul(ng-show='files.length')#photos-list.thumbnails.span12.pb_well
             li(ng-repeat='file in files')
                 a(ng-href='image/xl?_p={{file.path}}',
