@@ -14,6 +14,7 @@ app.controller('IndexCtrl', function($scope, $location, Index, $timeout) {
 
         $scope.breadcrumb = [];
         $scope.breadcrumb = path.split('/').slice(1).reduce(function(o, i, k, d){
+            if(i == '') return o;
             o.push({
                 name: i,
                 path: '/' + d.slice(0, k+1).join('/')
