@@ -19,7 +19,7 @@ div(ng-controller="IndexCtrl").span12
             li(ng-repeat='file in files')
                 a(ng-href='image/xl?_p={{file.path}}',
                     title='{{file.name | uppercase }}',
-                    data-pp-title='<a href="#">{{file.name | uppercase}}</a>',
+                    data-pp-title='<a href="image/o?_p={{file.path}}">{{file.name | uppercase}}</a>',
                     ng-style="file.thumbnailStyle",
                     rel='prettyPhoto[gallery]').thumbnail.pb_cropped
 

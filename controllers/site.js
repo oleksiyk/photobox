@@ -55,13 +55,29 @@ module.exports = function(app){
             var size = req.params['size'] || 'm';
             var cachePath = path.resolve(app.config.runtimeDir, 'cache', size, '.'+dropboxPath);
 
+            var sendfile = function(fpath){
+                if(size == 'o'){
+                    res.attachment(fpath);
+                }
+                res.sendfile(fpath);
+            }
+
+            var download = function(dpath, cb){
+                dpath = dpath.toLowerCase();
+                if(size != 'o'){
+                    app.dropbox.thumbnails(dpath, {size: size}, cb);
+                } else {
+                    app.dropbox.get(dpath, cb);
+                }
+            }
+
             //console.log(cachePath);
 
             fs.exists(cachePath, function(exists){
                 if(exists){
-                    res.sendfile(cachePath);
+                    sendfile(cachePath);
                 } else {
-                    app.dropbox.thumbnails(dropboxPath.toLowerCase(), {size: size}, function(status, buf, metadata){
+                    download(dropboxPath, function(status, buf, metadata){
                         //console.log(status, metadata);
                         if(status == 200){
 
@@ -77,11 +93,9 @@ module.exports = function(app){
                                         return;
                                     }
 
-                                    res.sendfile(cachePath);
+                                    sendfile(cachePath);
                                 })
                             })
-
-                            //res.send(buf);
 
                         } else {
                             res.status(status).send();
