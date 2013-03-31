@@ -86,7 +86,8 @@ module.exports = function(app){
         },
 
         requireAuthentication: function(req, res, next){
-            if (req.session.authenticated) {
+
+            if (!app.config.users || _.size(app.config.users) == 0 || req.session.authenticated) {
                 next();
             } else {
                 res.status(403).json({
