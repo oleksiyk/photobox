@@ -7,7 +7,7 @@ div(ng-controller="IndexCtrl").span12
                 span.divider /
                 a(ng-href='#?_p={{br.path}}') {{br.name}}
     .row-fluid
-        ul#folders-list.thumbnails.span12
+        ul(ng-show='folders.length')#folders-list.thumbnails.span12.well
             li(ng-repeat='folder in folders')
                 a(ng-href='#?_p={{folder.path}}', ng-style="folder.thumbnailStyle").thumbnail.pb_cropped.pb_folder
                     .pb_table
@@ -15,7 +15,7 @@ div(ng-controller="IndexCtrl").span12
                             .pb_centered_text {{folder.name}}
 
     .row-fluid
-        ul#photos-list.thumbnails.span12
+        ul(ng-show='files.length')#photos-list.thumbnails.span12.well
             li(ng-repeat='file in files')
                 a(ng-href='image/xl?_p={{file.path}}', ng-style="file.thumbnailStyle", rel='prettyPhoto[gallery]').thumbnail.pb_cropped
 
