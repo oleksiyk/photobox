@@ -49,7 +49,16 @@ module.exports = function(app){
 
             _.each(list, function(entry){
                 if(entry.is_dir){
-                    entry.thumbnailPath = getDirThumbnail(entry)
+                    entry.thumbnailPath = getDirThumbnail(entry);
+                    entry.contentDirs = 0;
+                    entry.contentFiles = 0;
+                    _.each(app.locals.dropboxState.list(app.config.folder, entry.path), function(e){
+                        if(e.is_dir){
+                            entry.contentDirs++;
+                        } else if(/\.(jpg|png)$/i.test(e.path)){
+                            entry.contentFiles++;
+                        }
+                    });
                 }
             });
 

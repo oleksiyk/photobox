@@ -40,6 +40,14 @@ app.controller('IndexCtrl', function($scope, $location, Index, $timeout) {
 
                 if(entry.is_dir){
                     if(entry.thumbnailPath){
+                        entry.dirTitle = [];
+                        if(entry.contentDirs){
+                            entry.dirTitle.push(entry.contentDirs + ' folders')
+                        }
+                        if(entry.contentFiles){
+                            entry.dirTitle.push(entry.contentFiles + ' images')
+                        }
+                        entry.dirTitle = entry.dirTitle.join(' and ');
                         entry.thumbnailStyle = {
                             'background-image': "url('image/l?_p=" + entry.thumbnailPath + "')"
                         }
