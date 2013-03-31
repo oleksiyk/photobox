@@ -12,6 +12,17 @@ app.controller('IndexCtrl', function($scope, $location, Index, $timeout) {
             $scope[f] = angular.bind(this, this[f]);
         }.bind(this))
 
+        $scope.breadcrumb = [];
+        $scope.breadcrumb = path.split('/').slice(1).reduce(function(o, i, k, d){
+            o.push({
+                name: i,
+                path: '/' + d.slice(0, k+1).join('/')
+            })
+
+            return o;
+
+        }, $scope.breadcrumb);
+
         this.list(path);
     }
 

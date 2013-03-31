@@ -1,5 +1,12 @@
 div(ng-controller="IndexCtrl").span12
     .row-fluid
+        ul.breadcrumb
+            li
+                a(href='#') Home
+            li(ng-repeat='br in breadcrumb')
+                span.divider /
+                a(ng-href='#?_p={{br.path}}') {{br.name}}
+    .row-fluid
         ul#folders-list.thumbnails.span12
             li(ng-repeat='folder in folders')
                 a(ng-href='#?_p={{folder.path}}', ng-style="folder.thumbnailStyle").thumbnail.pb_cropped.pb_folder
