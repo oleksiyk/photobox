@@ -30,6 +30,6 @@ http://localhost:4000/
 
 # Demo
 
-Login with joe / pwd:
+__Login with joe / pwd__:
 
 [Photobox demo gallery](http://photos.luckyteam.co.uk/demo/ "Photobox demo gallery")
