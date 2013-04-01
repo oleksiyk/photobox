@@ -99,9 +99,11 @@ function startExpressApp(){
             process.exit(-1);
         }
 
-        app.listen(4000);
+        app.config.port = app.config.port || 4000;
 
-        console.log('Express app started on port 4000');
+        app.listen(app.config.port);
+
+        console.log('Photobox started on port ' + app.config.port);
     });
 
 }
