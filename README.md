@@ -34,7 +34,7 @@ Login with __joe / pwd__:
 
 [Photobox demo gallery](http://photos.luckyteam.co.uk/demo/ "Photobox demo gallery")
 
-# License
+# License (MIT)
 
 Copyright (c) 2013 Oleksiy Krivoshey
 
