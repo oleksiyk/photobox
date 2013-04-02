@@ -6,6 +6,9 @@
 
 # Installation
 
+  * You need to have your own Dropbox app key and secret, you can get this pair [here] (https://www.dropbox.com/developers/apps/create)
+    > The application should be of 'Core' type
+
   * Make sure you have Node.js installed.
 
   * Download (or git clone) then install node modules:

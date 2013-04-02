@@ -1,14 +1,12 @@
 
 module.exports = {
 
-    /* do not change */
     dropbox: {
-        app_key: "4ph67bq5hmoii5u",
-        app_secret: "m7gkyo1wn9dm72l",
+        app_key: "aaaaaaaaaaaaaaaaaaa",
+        app_secret: "bbbbbbbbbbbbbbb",
         scope: '',
         root: 'dropbox'
     },
-    /* do not change */
 
 
     port: 4000,
