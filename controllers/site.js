@@ -54,6 +54,7 @@ module.exports = function(app){
             var dropboxPath = app.config.folder + req.query._p;
             var size = req.params['size'] || 'm';
             var cachePath = path.resolve(app.config.runtimeDir, 'cache', size, '.'+dropboxPath);
+            var curMetadata = app.locals.dropboxState.metadata(app.config.folder, req.query._p);
 
             var sendfile = function(fpath){
                 if(size == 'o'){
@@ -71,10 +72,11 @@ module.exports = function(app){
                 }
             }
 
-            //console.log(cachePath);
+            //console.log(app.locals.dropboxState.metadata(app.config.folder, req.query._p));
 
-            fs.exists(cachePath, function(exists){
-                if(exists){
+            fs.stat(cachePath, function(err, stats){
+
+                if(!err && stats.mtime.getTime() == curMetadata.modified){
                     sendfile(cachePath);
                 } else {
                     download(dropboxPath, function(status, buf, metadata){
@@ -92,6 +94,8 @@ module.exports = function(app){
                                         console.error(err);
                                         return;
                                     }
+
+                                    fs.utimes(cachePath, Date.now(), Date.parse(metadata.modified)/1000);
 
                                     sendfile(cachePath);
                                 })
