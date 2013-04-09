@@ -16,7 +16,8 @@
         "async": ">=0.2.5",
         "dbox": ">=0.6.2",
         "optimist": ">=0.3.5",
-        "prompt": "0.1.12"
+        "prompt": "0.1.12",
+        "fs-persistent-object": ">=0.0.1"
     }
 
 }

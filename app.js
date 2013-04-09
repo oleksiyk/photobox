@@ -5,7 +5,7 @@ var prompt  = require("prompt");
 prompt.colors = false;
 prompt.message = '>>';
 
-var persistentObject = require('./lib/persistent_object');
+var persistentObject = require('fs-persistent-object');
 
 var optimist = require('optimist')
     .usage('Usage: $0 [options]')
@@ -24,7 +24,7 @@ app.config = require(argv.config);
 
 var dbox   = require("dbox").app(app.config.dropbox)
 
-var accessToken = new persistentObject(path.resolve(app.config.runtimeDir, '.dropbox.access.token'), {
+var accessToken = persistentObject.load(path.resolve(app.config.runtimeDir, '.dropbox.access.token'), {
     token: null
 });
 
