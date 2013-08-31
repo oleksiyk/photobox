@@ -5,7 +5,7 @@ div(ng-controller="LoginCtrl").span12.pb_fadein
                 div(ng-class='{ error: error }').control-group
                     label.control-label Login
                     .controls
-                        input(type="text", name="login", ng-model='form.login', placeholder="Login", required)
+                        input(type="text", name="login", ng-model='form.login', placeholder="Login", required, autocorrect="off", autocapitalize="off")
                 div(ng-class='{ error: error }').control-group
                     label.control-label Password
                     .controls
