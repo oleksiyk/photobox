@@ -1,6 +1,6 @@
 div(ng-controller="LoginCtrl").span12.pb_fadein
     .row-fluid
-        .span5.well
+        .span4.offset4.well
             form(ng-submit="login()", name="loginForm").form-horizontal
                 div(ng-class='{ error: error }').control-group
                     label.control-label Login
@@ -12,6 +12,6 @@ div(ng-controller="LoginCtrl").span12.pb_fadein
                         input(type="text", type="password", name="password", ng-model='form.password', placeholder="Password", required)
                 .control-group
                     .controls
-                        button(type="submit").btn Sign in
+                        button(type="submit").btn.btn-default Sign in
 
 
