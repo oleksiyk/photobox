@@ -35,9 +35,6 @@ app.controller('IndexCtrl', function($scope, $location, Index, $timeout) {
             $scope.files = [];
 
             _.each(data, function(entry){
-                entry.name = entry.path.split('/');
-                entry.name = entry.name[entry.name.length-1];
-
                 if(entry.is_dir){
                     if(entry.thumbnailPath){
                         entry.dirTitle = [];
@@ -51,7 +48,6 @@ app.controller('IndexCtrl', function($scope, $location, Index, $timeout) {
                     }
                     $scope.folders.push(entry);
                 } else if(/\.(jpg|png)$/i.test(entry.path)){
-                    entry.name = entry.name.replace(/\.(jpg|png)$/i, '');
                     $scope.files.push(entry);
                 }
 

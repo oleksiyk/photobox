@@ -1,8 +1,8 @@
 {
     "author":"Oleksiy Krivoshey <oleksiyk@gmail.com>",
-    "name":"Photo.js",
-    "description":"Browse and view your Dropbox photos",
-    "version":"0.0.1",
+    "name":"Photobox",
+    "description":"Make a simple photo gallery from photos stored on sirv.com",
+    "version":"1.0.0",
     "main":"./express/app.js",
 
     "engines":{
@@ -12,12 +12,11 @@
     "dependencies":{
         "express":"3.x",
         "jade": ">= 0.0.1",
-        "underscore": ">=1.4.4",
-        "async": ">=0.2.5",
-        "dbox": ">=0.6.2",
+        "bluebird": "~=1.2.x",
+        "lodash": "~=2.4.*",
         "optimist": ">=0.3.5",
-        "prompt": "0.1.12",
-        "fs-persistent-object": ">=0.0.1"
+        "fs-persistent-object": ">=0.0.1",
+        "aws-sdk": "~=2.0.0"
     }
 
 }

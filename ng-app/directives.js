@@ -60,7 +60,7 @@ angular.module('Photobox.js.directives', []).
                             element.addClass('pb_fadein');
                         }, 300)
 
-                    }).attr('src', 'image/l?_p=' + attrs.fadebackground)
+                    }).attr('src', attrs.fadebackground)
                 })
             }
         };

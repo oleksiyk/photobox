@@ -11,16 +11,16 @@ div(ng-controller="IndexCtrl").span12
             li(ng-repeat='folder in folders')
                 a(ng-href='#?_p={{folder.path}}',
                     title='{{folder.dirTitle | uppercase}}').thumbnail.pb_thumb_128
-                    div(fadebackground="{{folder.thumbnailPath}}").pb_table
+                    div(fadebackground="{{folder.thumbnailPath}}?thumbnail=256").pb_table
                         .pb_cell
                             .pb_centered_text {{folder.name}}
 
     .row-fluid.pb_fadein
         ul(ng-show='files.length')#photos-list.thumbnails.span12.pb_well
             li(ng-repeat='file in files')
-                a(ng-href='image/xl?_p={{file.path}}',
+                a(ng-href='{{file.path}}?scale.width=1280',
                     title='{{file.name | uppercase }}',
-                    data-pp-title='<a href="image/o?_p={{file.path}}">{{file.name | uppercase}}</a>',
+                    data-pp-title='<a href="{{file.path}}">{{file.name | uppercase}}</a>',
                     rel='prettyPhoto[gallery]').thumbnail.pb_thumb_256
-                    div(fadebackground="{{file.path}}").pb_table
+                    div(fadebackground="{{file.path}}?thumbnail=256").pb_table
 

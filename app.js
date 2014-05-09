@@ -1,11 +1,11 @@
+"use strict";
+
+// process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
 var path = require('path');
 var express = require('express');
-var prompt  = require("prompt");
-
-prompt.colors = false;
-prompt.message = '>>';
-
-var persistentObject = require('fs-persistent-object');
+var AWS = require('aws-sdk');
+var Promise = require('bluebird');
 
 var optimist = require('optimist')
     .usage('Usage: $0 [options]')
@@ -21,35 +21,6 @@ if(argv.help || argv.h) {
 var app = module.exports = express();
 
 app.config = require(argv.config);
-
-var dbox   = require("dbox").app(app.config.dropbox)
-
-var accessToken = persistentObject.load(path.resolve(app.config.runtimeDir, '.dropbox.access.token'), {
-    token: null
-});
-
-if(!accessToken.token){
-    dbox.requesttoken(function(status, request_token){
-
-        prompt.start()
-        prompt.get(['please authorize application at the following url and press ENTER when done\n' + request_token.authorize_url], function (err, result) {
-            if(err){
-                throw err;
-            }
-
-            dbox.accesstoken(request_token, function(status, access_token){
-                console.log(access_token)
-
-                accessToken.token = access_token;
-
-                startExpressApp();
-            })
-        });
-    });
-
-} else {
-    startExpressApp();
-}
 
 //generic config
 app.configure(function(){
@@ -76,6 +47,16 @@ app.configure('production', function(){
 
 app.controllers = require('./controllers')(app);
 
+AWS.config.update({
+    accessKeyId: app.config.sirv.s3key,
+    secretAccessKey: app.config.sirv.s3secret,
+    s3ForcePathStyle: true
+});
+
+app.s3 = Promise.promisifyAll(new AWS.S3({
+    endpoint: new AWS.Endpoint(app.config.sirv.s3endpoint)
+}))
+
 require('./routes')(app);
 
 // register exit handlers so that process.on('exit') works
@@ -87,26 +68,12 @@ var exitFunc = function(){
 process.on('SIGINT', exitFunc);
 process.on('SIGTERM', exitFunc);
 
-function startExpressApp(){
+app.config.port = app.config.port || 4000;
 
-    app.dropbox = dbox.client(accessToken.token);
+app.listen(app.config.port);
 
-    app.locals.dropboxState = require('./lib/dropbox_state')(app.dropbox, app.config.runtimeDir);
+console.log('Photobox started on port ' + app.config.port);
 
-    app.locals.dropboxState.update(function(err){
-        if(err){
-            console.error(err);
-            process.exit(-1);
-        }
-
-        app.config.port = app.config.port || 4000;
-
-        app.listen(app.config.port);
-
-        console.log('Photobox started on port ' + app.config.port);
-    });
-
-}
 
 
 

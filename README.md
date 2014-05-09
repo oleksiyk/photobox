@@ -1,45 +1,8 @@
-# Photobox - Node (Express) + Angular gallery for your Dropbox photos
-
-### Features:
- * database-less
- * user/password protection (very basic, configured in config.js file)
-
-# Installation
-
-  * You need to have your own Dropbox app key and secret, you can get this pair [here] (https://www.dropbox.com/developers/apps/create)
-    > The application should be of 'Core' type
-
-  * Make sure you have Node.js installed.
-
-  * Download (or git clone) then install node modules:
-
-``` sh
-$ npm install
-```
-
-  * Copy config.example.js to config.js and change port, title and users hash
-
-  * Run it:
-
-``` sh
-$ node app.js
-```
-
-  * View in browser:
-
-```
-http://localhost:4000/
-```
-
-# Demo
-
-Login with __joe / pwd__:
-
-[Photobox demo gallery](http://photos.luckyteam.co.uk/demo/ "Photobox demo gallery")
+# Photobox - Node (Express) + Angular gallery for your sirv.com photos
 
 # License (MIT)
 
-Copyright (c) 2013 Oleksiy Krivoshey
+Copyright (c) 2014 Oleksiy Krivoshey
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation
