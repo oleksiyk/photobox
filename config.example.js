@@ -1,21 +1,18 @@
 
 module.exports = {
 
-    dropbox: {
-        app_key: "aaaaaaaaaaaaaaaaaaa",
-        app_secret: "bbbbbbbbbbbbbbb",
-        scope: '',
-        root: 'dropbox'
+    sirv: {
+        s3key: "",
+        s3secret: "",
+        s3endpoint: "https://s3.sirv.com",
+        s3bucket: ""
     },
 
-
-    port: 4000,
-
-    folder: '/Photos', // folder with your photos on Dropbox
+    root: '/Photos', // folder with your photos on Sirv
 
     title: 'My photo gallery',
 
-    runtimeDir: './runtime',
+    port: 4000,
 
     users: {
         'joe': 'pwd'
