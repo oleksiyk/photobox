@@ -42,6 +42,10 @@ exports.index = function(req, res){
             if(p){
                 return list.Prefix + p.Key
             }
+
+            return Promise.race(list.CommonPrefixes.map(function (_dir) {
+                return getDirThumbnail(path.normalize(dir + '/' + _dir.Prefix))
+            }))
         })
     }
 
