@@ -70,7 +70,7 @@ exports.index = function(req, res){
                 })
             })
 
-            res.json(result)
+            res.json(_.sortBy(result, 'name'))
         })
     })
 
