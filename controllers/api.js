@@ -11,13 +11,18 @@ module.exports = function(_app){
     return exports;
 }
 
-var _list = function (_path) {
+var _list = _.memoize(function (_path) {
     return app.s3.listObjectsAsync({
         Bucket: app.config.sirv.s3bucket,
         Delimiter: '/',
         Prefix: path.normalize(app.config.root + '/' + _path + '/')
     })
-}
+    .finally(function () {
+        setTimeout(function () {
+            delete _list.cache[_path]
+        }, 15000)
+    })
+}, _.identity)
 
 exports.index = function(req, res){
 
@@ -65,24 +70,6 @@ exports.index = function(req, res){
         })
     })
 
-    /*var list = app.locals.dropboxState.list(app.config.folder, req.body.path);
-
-    _.each(list, function(entry){
-        if(entry.is_dir){
-            entry.thumbnailPath = getDirThumbnail(entry);
-            entry.contentDirs = 0;
-            entry.contentFiles = 0;
-            _.each(app.locals.dropboxState.list(app.config.folder, entry.path), function(e){
-                if(e.is_dir){
-                    entry.contentDirs++;
-                } else if(/\.(jpg|png)$/i.test(e.path)){
-                    entry.contentFiles++;
-                }
-            });
-        }
-    });
-
-    res.json(list);*/
 }
 
 exports.login = function(req, res){

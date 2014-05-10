@@ -29,7 +29,6 @@ app.configure(function(){
     app.use(express.bodyParser());
     app.use(express.cookieParser());
     app.use(express.session({ secret: 'photobox-topsecret' }));
-    app.use(express.bodyParser());
     app.use(express.methodOverride());
     app.use(express.static(__dirname + '/static'));
     app.use(express.static(__dirname + '/ng-app'));
