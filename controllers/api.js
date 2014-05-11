@@ -20,40 +20,42 @@ var _list = _.memoize(function (_path) {
     .finally(function () {
         setTimeout(function () {
             delete _list.cache[_path]
-        }, 15000)
+        }, 60*1000)
+    })
+}, _.identity)
+
+var _getDirThumbnail = _.memoize(function(dir){
+    return _list(dir)
+    .then(function (list) {
+        var p = _.find(list.Contents, function(entry){
+            if(/\.(jpg|png)$/i.test(entry.Key)){
+                return true;
+            }
+            return false;
+        })
+
+        if(p){
+            return list.Prefix + p.Key
+        }
+
+        return Promise.race(list.CommonPrefixes.map(function (_dir) {
+            return _getDirThumbnail(path.normalize(dir + '/' + _dir.Prefix))
+        }))
+    })
+    .finally(function () {
+        setTimeout(function () {
+            delete _getDirThumbnail.cache[dir]
+        }, 5*60*1000)
     })
 }, _.identity)
 
 exports.index = function(req, res){
 
-    var getDirThumbnail = function(dir){
-
-        var findImage = function(list){
-            return _.find(list, function(entry){
-                if(/\.(jpg|png)$/i.test(entry.Key)){
-                    return true;
-                }
-                return false;
-            })
-        }
-
-        return _list(dir).then(function (list) {
-            var p = findImage(list.Contents)
-            if(p){
-                return list.Prefix + p.Key
-            }
-
-            return Promise.race(list.CommonPrefixes.map(function (_dir) {
-                return getDirThumbnail(path.normalize(dir + '/' + _dir.Prefix))
-            }))
-        })
-    }
-
     _list(req.body.path).then(function (list) {
         var result = [];
 
         return Promise.map(list.CommonPrefixes, function (dir) {
-            return getDirThumbnail(path.normalize(req.body.path + '/' + dir.Prefix)).then(function (thumbnailPath) {
+            return _getDirThumbnail(path.normalize(req.body.path + '/' + dir.Prefix)).then(function (thumbnailPath) {
                 result.push({
                     thumbnailPath: '//' + app.config.sirv.s3bucket + '.sirv.com' + thumbnailPath,
                     path: path.normalize(req.body.path + '/' + dir.Prefix),
