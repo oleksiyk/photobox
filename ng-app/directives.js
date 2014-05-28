@@ -2,6 +2,8 @@
 
 /* Directives */
 
+/* global angular, _ */
+
 
 angular.module('Photobox.js.directives', []).
     directive('appVersion', ['version', function (version) {
@@ -65,4 +67,61 @@ angular.module('Photobox.js.directives', []).
             }
         };
     }])
+
+    .directive('autofillSpy', function ($log, $timeout) {
+        var log = angular.noop;
+//        log = _.partial($log.log, 'Spy:');
+
+        var frequency = 250;
+
+        var elements = [],
+            interval;
+
+        function setSpy(element, ctrl){
+            log('set', element);
+            var spyObj = {element: element, ctrl: ctrl};
+            elements.push(spyObj);
+            updateSpy();
+        }
+
+        function clearSpy(element) {
+            log('clear', element);
+            _.remove(elements, {element: element});
+            updateSpy();
+        }
+
+        function updateSpy(){
+            log('update', elements.length, interval);
+            if(!elements.length){
+                interval = clearInterval(interval);
+            } else
+            if (undefined === interval){
+                interval = setInterval(spy, frequency);
+                log('Spy started');
+            }
+        }
+
+        function spy(){
+            log('Spy!');
+            angular.forEach(elements, function(se){
+                var newValue = se.element.val();
+                if(newValue != se.ctrl.$viewValue) {
+                    log('Autofill detected!', se.ctrl.$viewValue, '=>', newValue);
+                    $timeout(function(){
+                        se.ctrl.$setViewValue(newValue);
+                    })
+                }
+            })
+        }
+
+        return {
+            require: 'ngModel',
+            link: function (scope, elem, attrs, ctrl) {
+                setSpy(elem, ctrl);
+                scope.$on('$destroy', function(){
+                    clearSpy(elem);
+                })
+            }
+        }
+    })
 ;
