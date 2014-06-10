@@ -16,8 +16,15 @@ div(ng-controller="IndexCtrl").span12
                             .pb_centered_text {{folder.name}}
 
     .row-fluid.pb_fadein
-        ul(ng-show='files.length')#photos-list.thumbnails.span12.pb_well
-            li(ng-repeat='file in files')
+        ul(ng-show='videos.length')#videos-list.thumbnails.span12.pb_well
+            li(ng-repeat='file in videos')
+                video(width='320' controls)
+                    source(src='{{file.path}}' type='video/mp4')
+                    div Your browser does not support the video element.
+
+    .row-fluid.pb_fadein
+        ul(ng-show='images.length')#photos-list.thumbnails.span12.pb_well
+            li(ng-repeat='file in images')
                 a(ng-href='{{file.path}}?scale.width=1280',
                     title='{{file.name | uppercase }}',
                     data-pp-title='<a href="{{file.path}}">{{file.name | uppercase}}</a>',

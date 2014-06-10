@@ -69,6 +69,7 @@ exports.index = function(req, res){
                 result.push({
                     path: '//' + app.config.sirv.s3bucket + '.sirv.com' + list.Prefix + file.Key,
                     name: path.basename(file.Key),
+                    contentType: file.ContentType
                 })
             })
 

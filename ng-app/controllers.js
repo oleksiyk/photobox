@@ -1,9 +1,12 @@
+"use strict";
+
+/* global app, angular, _ */
 
 app.controller('IndexCtrl', function($scope, $location, Index, $timeout) {
 
     var IndexCtrl = function(){
 
-        var path = $location.search()['_p'] || '/';
+        var path = $location.search()._p || '/';
 
         // bind some methods to scope
         [
@@ -14,7 +17,9 @@ app.controller('IndexCtrl', function($scope, $location, Index, $timeout) {
 
         $scope.breadcrumb = [];
         $scope.breadcrumb = path.split('/').slice(1).reduce(function(o, i, k, d){
-            if(i == '') return o;
+            if(i === '') {
+                return o;
+            }
             o.push({
                 name: i,
                 path: '/' + d.slice(0, k+1).join('/')
@@ -32,7 +37,8 @@ app.controller('IndexCtrl', function($scope, $location, Index, $timeout) {
         Index.load({path: path}, function(data){
 
             $scope.folders = [];
-            $scope.files = [];
+            $scope.images = [];
+            $scope.videos = [];
 
             _.each(data, function(entry){
                 if(entry.is_dir){
@@ -47,8 +53,10 @@ app.controller('IndexCtrl', function($scope, $location, Index, $timeout) {
                         entry.dirTitle = entry.dirTitle.join(' and ');
                     }
                     $scope.folders.push(entry);
-                } else if(/\.(jpg|png)$/i.test(entry.path)){
-                    $scope.files.push(entry);
+                } else if(entry.contentType.split('/')[0] === 'image'){
+                    $scope.images.push(entry);
+                } else if(entry.contentType.split('/')[0] === 'video'){
+                    $scope.videos.push(entry);
                 }
 
             }.bind(this))
@@ -70,7 +78,7 @@ app.controller('IndexCtrl', function($scope, $location, Index, $timeout) {
         })
     }
 
-    return new IndexCtrl;
+    return new IndexCtrl();
 
 });
 
@@ -78,7 +86,7 @@ app.controller('LoginCtrl', function($scope, $location, $http) {
 
     var LoginCtrl = function(){
 
-        var path = $location.search()['_p'] || '/';
+        // var path = $location.search()._p || '/';
 
         // bind some methods to scope
         [
@@ -94,18 +102,18 @@ app.controller('LoginCtrl', function($scope, $location, $http) {
         //console.log($scope.form);
 
         $http.post('api/login', $scope.form).
-            success(function(data, status){
+            success(function(/*data, status*/){
                 //console.log(data, status);
                 $scope.error = false;
                 $location.replace();
                 $location.path('/');
             }).
-            error(function(data, status){
+            error(function(/*data, status*/){
                 $scope.error = true;
                 //console.log(data, status);
             });
     }
 
-    return new LoginCtrl;
+    return new LoginCtrl();
 
 });
