@@ -55,9 +55,9 @@ app.controller('IndexCtrl', function($scope, $location, Index, $timeout) {
                     $scope.folders.push(entry);
                 } else if(entry.contentType.split('/')[0] === 'image'){
                     $scope.images.push(entry);
-                } else if(entry.contentType.split('/')[0] === 'video'){
+                }/* else if(entry.contentType.split('/')[0] === 'video'){
                     $scope.videos.push(entry);
-                }
+                }*/
 
             }.bind(this))
 
