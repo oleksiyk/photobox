@@ -15,7 +15,7 @@ var _list = _.memoize(function (_path) {
     return app.s3.listObjectsAsync({
         Bucket: app.config.sirv.s3bucket,
         Delimiter: '/',
-        Prefix: path.normalize(app.config.root + '/' + _path + '/')
+        Prefix: path.normalize(_path)
     })
     .finally(function () {
         setTimeout(function () {
@@ -35,11 +35,11 @@ var _getDirThumbnail = _.memoize(function(dir){
         })
 
         if(p){
-            return list.Prefix + p.Key
+            return '/' + p.Key
         }
 
         return Promise.race(list.CommonPrefixes.map(function (_dir) {
-            return _getDirThumbnail(path.normalize(dir + '/' + _dir.Prefix))
+            return _getDirThumbnail(path.normalize(_dir.Prefix))
         }))
     })
     .finally(function () {
@@ -50,15 +50,15 @@ var _getDirThumbnail = _.memoize(function(dir){
 }, _.identity)
 
 exports.index = function(req, res){
-
-    _list(req.body.path).then(function (list) {
+    var dir = path.normalize(app.config.root + '/' + req.body.path + '/');
+    _list(dir).then(function (list) {
         var result = [];
 
         return Promise.map(list.CommonPrefixes, function (dir) {
-            return _getDirThumbnail(path.normalize(req.body.path + '/' + dir.Prefix)).then(function (thumbnailPath) {
+            return _getDirThumbnail(path.normalize('/' + dir.Prefix)).then(function (thumbnailPath) {
                 result.push({
                     thumbnailPath: '//' + app.config.sirv.s3bucket + '.sirv.com' + thumbnailPath,
-                    path: path.normalize(req.body.path + '/' + dir.Prefix),
+                    path: path.normalize(req.body.path + '/' + path.basename(dir.Prefix)),
                     name: path.basename(dir.Prefix),
                     is_dir: true
                 })
@@ -66,8 +66,11 @@ exports.index = function(req, res){
         })
         .then(function () {
             _.each(list.Contents, function (file) {
+                if(path.normalize('/' + file.Key + '/') === dir){
+                    return;
+                }
                 result.push({
-                    path: '//' + app.config.sirv.s3bucket + '.sirv.com' + list.Prefix + file.Key,
+                    path: '//' + app.config.sirv.s3bucket + '.sirv.com' + '/' + file.Key,
                     name: path.basename(file.Key),
                     contentType: file.ContentType
                 })
