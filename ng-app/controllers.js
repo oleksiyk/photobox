@@ -2,6 +2,8 @@
 
 /* global app, angular, _ */
 
+var docTitle = document.title;
+
 app.controller('IndexCtrl', function($scope, $location, Index, $timeout) {
 
     var IndexCtrl = function(){
@@ -28,6 +30,12 @@ app.controller('IndexCtrl', function($scope, $location, Index, $timeout) {
             return o;
 
         }, $scope.breadcrumb);
+
+        if($scope.breadcrumb.length){
+            document.title = _.pluck($scope.breadcrumb, 'name').join(' - ');
+        } else {
+            document.title = docTitle;
+        }
 
         this.list(path);
     }

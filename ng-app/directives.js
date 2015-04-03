@@ -31,6 +31,8 @@ angular.module('Photobox.js.directives', []).
         };
     }).
     directive('fadebackground', ['$timeout', function ($timeout) {
+        // var supportsImageSet = /^-webkit-image-set/.test($('<div>').css('background-image', '-webkit-image-set(url(/favicon.ico) 1x)').css('background-image'));
+
         return {
             restrict: 'AC',
             link: function (scope, element, attrs) {
